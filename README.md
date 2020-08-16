@@ -3,7 +3,7 @@ Library of python classes for performing Least-Squares Support Vector Machine (L
 machine-learning modeling. The classes are build to conform to the scikit-learn API allowing for 
 smooth integration with scikit-learn based projects.
 
-**Implementation details:** [Tutorial](https://dannyvanpoucke.be/building-scikit-learn-regressor-lssvm-en/)
+**Implementation details:** [Tutorial webpage](https://dannyvanpoucke.be/building-scikit-learn-regressor-lssvm-en/)
 
 ## Status
 - [x] Regressor Class
