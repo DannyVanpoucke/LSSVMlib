@@ -3,8 +3,8 @@ import glob
 from setuptools import setup, find_packages
 
 
-with open('README') as f:
-    long_description = ''.join(f.readlines())
+#with open('README') as f:
+#    long_description = ''.join(f.readlines())
 
 
 setup(
@@ -18,10 +18,10 @@ setup(
     packages=find_packages(exclude=['examples', 'examples.*']),
     zip_safe=False,
     install_requires=[
-        'sklearn>=0.21.2',
-        'numpy>=1.16.4',
-        'pandas>=0.24.2',
-        'scipy>=1.2.1',
+        'sklearn',
+        'numpy',
+        'pandas',
+        'scipy',
     ],
     classifiers=[
         'Intended Audience :: Developers',
