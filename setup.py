@@ -14,7 +14,7 @@ setup(
     license='MIT',
     keywords='LS-SVM, Least Squares Support Vector Machine, Regression, scikit-learn, machine learning, artificial intelligence',
     url='https://github.com/DannyVanpoucke/LSSVMlib',
-    packages=find_packages(include=[LSSVMlib],exclude=['examples', 'examples.*']),
+    packages=find_packages(include=['LSSVMlib'],exclude=['examples', 'examples.*']),
     zip_safe=False,
     install_requires=[
         'sklearn',
