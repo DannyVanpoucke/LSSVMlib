@@ -1,4 +1,3 @@
-## https://godatadriven.com/blog/a-practical-guide-to-using-setup-py/
 import glob
 from setuptools import setup, find_packages
 
@@ -15,7 +14,7 @@ setup(
     license='MIT',
     keywords='LS-SVM, Least Squares Support Vector Machine, Regression, scikit-learn, machine learning, artificial intelligence',
     url='https://github.com/DannyVanpoucke/LSSVMlib',
-    packages=find_packages(exclude=['examples', 'examples.*']),
+    packages=find_packages(include=[LSSVMlib],exclude=['examples', 'examples.*']),
     zip_safe=False,
     install_requires=[
         'sklearn',
@@ -32,6 +31,6 @@ setup(
         'Topic :: Software Development :: Libraries',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
         ],
-    setup_requires=['pytest-runner',],
-    tests_require=['pytest',],
+#    setup_requires=['pytest-runner',],
+#    tests_require=['pytest',],
 )
