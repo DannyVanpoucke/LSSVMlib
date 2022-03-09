@@ -10,7 +10,7 @@ smooth integration with scikit-learn based projects.
 - [ ] Classification Class
 
 ## Install & uninstall in Jupyter-notebook and Google colaboratory
-!python -m pip install git+https://github.com/DannyVanpoucke/LSSVMlib#egg=LSSVMlib
+!python -m pip install git+https://github.com/DannyVanpoucke/LSSVMlib#egg=LSSVMlib <br/>
 !python -m pip uninstall git+https://github.com/DannyVanpoucke/LSSVMlib#egg=LSSVMlib
 
 ## Dependencies 
