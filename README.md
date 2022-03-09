@@ -9,6 +9,10 @@ smooth integration with scikit-learn based projects.
 - [x] Regressor Class
 - [ ] Classification Class
 
+## Install & uninstall in Jupyter-notebook and Google colaboratory
+!python -m pip install git+https://github.com/DannyVanpoucke/LSSVMlib#egg=LSSVMlib
+!python -m pip uninstall git+https://github.com/DannyVanpoucke/LSSVMlib#egg=LSSVMlib
+
 ## Dependencies 
 (*i.e.* implemented with)
 - Python  3.7.3
