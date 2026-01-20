@@ -16,7 +16,7 @@ smooth integration with scikit-learn based projects.
 ## Dependencies 
 (*i.e.* implemented with)
 - Python  3.7.3
-- sklearn 0.21.2 
+- scikit-learn 0.21.2 
 - pandas  0.24.2
 - numpy   1.16.4
 - scipy   1.2.1
@@ -27,5 +27,6 @@ Please open an issue if you encounter a bug.
 ## Contact 
  - Author : *Danny E.P. Vanpoucke*
  - Twitter: [@DelocalizedD](https://twitter.com/DelocalizedD)
+ - Mastodon: [@DannyVanpoucke](https://fediscience.org/@DannyVanpoucke)
  - [Website](https://Dannyvanpoucke.be)
  - [Github](https://github.com/DannyVanpoucke)
