@@ -2,7 +2,12 @@
 # coding: utf-8
 
 # In[ ]:
-
+# theory classification_                         _   _   _    _  _
+#| 0          y^T            |  | b  |   | 0 |
+#|                          |  |    | = |   |
+#| y_N  Omega+gamma^-1 I_N  |  | a  |   | 1 |
+#|_                        _|  |_  _|   |_ _|
+# Vector of ones becomes labelvector y in classification
 
 import numpy as np
 import pandas as pd
@@ -233,25 +238,23 @@ class LSSVMClassification(BaseEstimator, ClassifierMixin):
             raise KeyError(message)
 
     def __OptimizeParams(self):
-        #different for classification: labels need to be included in kernelmatrix Ωij = yiyj*K(xi, xj) why? LSSVM classification gives class 1/-1 or 0/1: determination location of datapoint on the hyp
-        # Classification
+        # Classification: labels need to be included in kernelmatrix Ωij=yiyj*K(xi,xj) 
         Omega = np.multiply.outer(self.y, self.y) * self.kernel_(self.x, self.x) #in fit(): trainingdata saved as self.x and self.y
-
-        Ones = np.array([[1]]*len(self.y)) # needs to be a 2D 1-column vector, hence [[ ]]
-
+        #Ones = np.array([[1]]*len(self.y)) # needs to be a 2D 1-column vector, hence [[ ]]
+        y = np.array([self.y]).T
+        
         A_dag = np.linalg.pinv(np.block([
-            [0, self.y.reshape(1,-1)],
-            [self.y.reshape(-1,1),
-             Omega + self.gamma**-1 * np.eye(len(self.y))] #y.T hangt af van wat de matrix is en y_values vervangen door self.y
-        ])) #Ones.T werkt in regressie wel, niet met self.y; y.T reshapet niet/doet niks
+            [0, y.T],
+            [y, Omega + self.gamma**-1 * np.eye(len(y))]
+        ])) # 2D kolomvector
 
-        B = np.concatenate((np.array([0]), self.y), axis=None)
-        #B = np.concatenate(([0], np.ones(len(self.y)))) #aanpassen nadat theorie bevestigd is
-
+        B = np.concatenate((np.array([0]), np.ones(len(self.y))))
+        
         solution = np.dot(A_dag, B)
+        
+        
         self.intercept_ = solution[0]
         self.coef_      = solution[1:] #these never change 
-
 
     def fit(self, X: np.ndarray, y: np.ndarray):
         """
@@ -265,7 +268,7 @@ class LSSVMClassification(BaseEstimator, ClassifierMixin):
         ---------------
             - X : ndarray
             2D array of training features (n_samples x n_features)
-            - y : 1D vector of binary class labels (-1 or +1)
+            - y : 1D vector of binary class labels (0 or 1)
         """
 
 
@@ -294,7 +297,7 @@ class LSSVMClassification(BaseEstimator, ClassifierMixin):
 
             if not np.array_equal(np.sort(labels), np.array([-1, 1])):
                 raise ValueError(
-                    "Labels need to be -1 and +1."
+                    "Labels need to be -1 and 1."
                 )
 
             self.__OptimizeParams()
@@ -305,6 +308,27 @@ class LSSVMClassification(BaseEstimator, ClassifierMixin):
                 "and a 1D array of targets."
             )
             raise Exception(message)
+
+    def decision_function(self, X: np.ndarray) -> np.ndarray:
+        """
+        Compute the decision values for a set of feature vectors.
+        
+        Parameters
+        ----------
+        X : ndarray
+            Feature vectors to classify.
+
+        Returns
+        -------
+        ndarray
+            Decision values of the classifier.
+        """
+
+        Ker = self.kernel_(X, self.x)
+
+        decision = np.dot(Ker, self.coef_ * self.y) + self.intercept_
+
+        return decision
 
       
     def predict(self, X: np.ndarray)->np.ndarray:
@@ -323,11 +347,11 @@ class LSSVMClassification(BaseEstimator, ClassifierMixin):
         """
         Ker = self.kernel_(X, self.x) 
         #decision= np.dot(self.coef_, Ker.T) + self.intercept_
-        decision = np.dot(Ker, self.coef_) + self.intercept_
+        decision = np.dot(Ker, self.coef_ * self.y) + self.intercept_
+        
+        
         return np.sign(decision)
 
 
-#TODO:
-#verifiëren of classificatie Y of ones gebruikt 
-#volgens de originele LS-SVM formule 
+
 
